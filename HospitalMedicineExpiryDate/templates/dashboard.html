@@ -1,0 +1,283 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>Dashboard</h1>
+
+    <p>
+        Real-time inventory health and expiry alerts
+    </p>
+
+</div>
+
+<div class="stats-grid">
+
+    <div class="stat-card">
+
+        <div class="stat-icon blue">
+            <i class="fas fa-pills"></i>
+        </div>
+
+        <div>
+            <p>Total Medicines</p>
+            <h2>{{ total_medicines }}</h2>
+        </div>
+
+    </div>
+
+    <div class="stat-card">
+
+        <div class="stat-icon green">
+            <i class="fas fa-box"></i>
+        </div>
+
+        <div>
+            <p>Total Stock</p>
+            <h2>{{ total_stock }}</h2>
+        </div>
+
+    </div>
+
+    <div class="stat-card">
+
+        <div class="stat-icon yellow">
+            <i class="fas fa-clock"></i>
+        </div>
+
+        <div>
+            <p>Expiring in 30 Days</p>
+            <h2>{{ expiring_soon }}</h2>
+        </div>
+
+    </div>
+
+    <div class="stat-card">
+
+        <div class="stat-icon red">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+
+        <div>
+            <p>Expired</p>
+            <h2>{{ expired }}</h2>
+        </div>
+
+    </div>
+
+</div>
+
+<div class="charts-grid">
+
+    <div class="chart-card">
+
+        <h3>Stock by Manufacturer</h3>
+
+        <canvas id="manufacturerChart"></canvas>
+
+    </div>
+
+    <div class="chart-card">
+
+        <h3>Inventory Status</h3>
+
+        <canvas id="inventoryChart"></canvas>
+
+    </div>
+
+</div>
+
+<div class="urgent-card">
+
+    <div class="urgent-header">
+
+        <h3>Urgent Attention</h3>
+
+        <a href="#">View All →</a>
+
+    </div>
+
+    <div class="alert-item expired">
+
+        <div>
+
+            <h4>Hydrocortisone Injection</h4>
+
+            <p>Pfizer • Batch HCT-5510 • Qty 60</p>
+
+        </div>
+
+        <span>Expired 90d ago</span>
+
+    </div>
+
+    <div class="alert-item expired">
+
+        <div>
+
+            <h4>Cetirizine 10mg</h4>
+
+            <p>Zydus • Batch CTZ-3340 • Qty 1500</p>
+
+        </div>
+
+        <span>Expired 45d ago</span>
+
+    </div>
+
+    <div class="alert-item warning">
+
+        <div>
+
+            <h4>Omeprazole 20mg</h4>
+
+            <p>Sun Pharma • Batch OMP-6611 • Qty 700</p>
+
+        </div>
+
+        <span>7 Days Left</span>
+
+    </div>
+
+    <div class="alert-item warning">
+
+        <div>
+
+            <h4>Ibuprofen 400mg</h4>
+
+            <p>Dr. Reddy's • Batch IBU-7733 • Qty 800</p>
+
+        </div>
+
+        <span>15 Days Left</span>
+
+    </div>
+
+</div>
+
+<script>
+
+const manufacturerCtx =
+document.getElementById('manufacturerChart');
+
+new Chart(manufacturerCtx, {
+
+type: 'bar',
+
+data: {
+
+labels: {{ labels | tojson }},
+
+datasets: [{
+
+data: {{ stock_values | tojson }},
+
+backgroundColor:'#14d8c4',
+borderRadius:8
+
+}]
+
+},
+
+options: {
+
+plugins: {
+
+legend: {
+display:false
+}
+
+},
+
+scales: {
+
+x: {
+
+ticks: {
+color:'#9cb6b8'
+},
+
+grid: {
+display:false
+}
+
+},
+
+y: {
+
+ticks: {
+color:'#9cb6b8'
+},
+
+grid: {
+color:'rgba(255,255,255,.08)'
+}
+
+}
+
+}
+
+}
+
+});
+
+const inventoryCtx =
+document.getElementById('inventoryChart');
+
+new Chart(inventoryCtx, {
+
+type:'doughnut',
+
+data: {
+
+labels:[
+'Active',
+'Expiring Soon',
+'Expired'
+],
+
+datasets:[{
+
+data:[
+Number({{ total_medicines - expiring_soon - expired }}),
+Number({{ expiring_soon }}),
+Number({{ expired }})
+],
+
+backgroundColor:[
+'#22c55e',
+'#f59e0b',
+'#ef4444'
+],
+
+borderWidth:0
+
+}]
+
+},
+
+options: {
+
+responsive:true,
+
+plugins: {
+
+legend: {
+
+position:'bottom',
+
+labels:{
+color:'white'
+}
+
+}
+
+}
+
+}
+
+});
+
+</script>
+{% endblock %}
