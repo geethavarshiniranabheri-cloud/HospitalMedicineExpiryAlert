@@ -98,61 +98,36 @@
 
     </div>
 
-    <div class="alert-item expired">
+    {% for medicine, days_left in urgent_medicines %}
+
+    <div class="alert-item {% if days_left < 0 %}expired{% else %}warning{% endif %}">
 
         <div>
 
-            <h4>Hydrocortisone Injection</h4>
+            <h4>{{ medicine[1] }}</h4>
 
-            <p>Pfizer • Batch HCT-5510 • Qty 60</p>
-
-        </div>
-
-        <span>Expired 90d ago</span>
-
-    </div>
-
-    <div class="alert-item expired">
-
-        <div>
-
-            <h4>Cetirizine 10mg</h4>
-
-            <p>Zydus • Batch CTZ-3340 • Qty 1500</p>
+            <p>
+                {{ medicine[2] }}
+                • Qty {{ medicine[3] }}
+            </p>
 
         </div>
 
-        <span>Expired 45d ago</span>
+        <span>
+
+            {% if days_left < 0 %}
+                Expired {{ -days_left }} days ago
+            {% else %}
+                {{ days_left }} Days Left
+            {% endif %}
+
+        </span>
 
     </div>
 
-    <div class="alert-item warning">
+    {% endfor %}
 
-        <div>
-
-            <h4>Omeprazole 20mg</h4>
-
-            <p>Sun Pharma • Batch OMP-6611 • Qty 700</p>
-
-        </div>
-
-        <span>7 Days Left</span>
-
-    </div>
-
-    <div class="alert-item warning">
-
-        <div>
-
-            <h4>Ibuprofen 400mg</h4>
-
-            <p>Dr. Reddy's • Batch IBU-7733 • Qty 800</p>
-
-        </div>
-
-        <span>15 Days Left</span>
-
-    </div>
+</div>
 
 </div>
 

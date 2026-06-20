@@ -39,17 +39,26 @@
 
         <ul class="sidebar-menu">
 
-            <li class="active">
+            <li class="{% if active_page == 'dashboard' %}active{% endif %}"
+                onclick="location.href='/'">
                 <i class="fas fa-th-large"></i>
                 Dashboard
             </li>
 
-            <li onclick="location.href='/add'">
+            <li class="{% if active_page == 'add' %}active{% endif %}"
+                onclick="location.href='/add'">
                 <i class="fas fa-capsules"></i>
                 Add Medicine
             </li>
 
-            <li>
+            <li class="{% if active_page == 'medicines' %}active{% endif %}"
+                onclick="location.href='/medicines'">
+                <i class="fas fa-table"></i>
+                Medicine Inventory
+            </li>
+
+            <li class="{% if active_page == 'reports' %}active{% endif %}"
+                onclick="location.href='/reports'">
                 <i class="fas fa-file-alt"></i>
                 Reports
             </li>

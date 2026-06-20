@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>Medicine Inventory</h1>
+
+    <p>
+        Manage and monitor medicine stock
+    </p>
+
+</div>
+
+<div class="inventory-card">
+
+    <div class="inventory-header">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="🔍 Search medicines..."
+            class="search-box"
+        >
+
+        <select
+    id="sortSelect"
+    class="sort-box"
+    onchange="changeSort()"
+>
+
+    <option value="expiry" 
+    {% if current_sort == 'expiry' %}selected{% endif %}>
+        Sort by Expiry Date
+    </option>
+
+    <option value="name"
+    {% if current_sort == 'name' %}selected{% endif %}>
+        Sort by Name
+    </option>
+
+    <option value="quantity"
+    {% if current_sort == 'quantity' %}selected{% endif %}>
+        Sort by Quantity
+    </option>
+
+</select>
+
+    </div>
+
+    <table id="medicineTable">
+
+        <thead>
+
+            <tr>
+
+                <th>Name</th>
+                <th>Manufacturer</th>
+                <th>Quantity</th>
+                <th>Expiry Date</th>
+                <th>Status</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for medicine in medicines %}
+
+        <tr>
+
+            <td>{{ medicine.name }}</td>
+            <td>{{ medicine.manufacturer }}</td>
+            <td>{{ medicine.quantity }}</td>
+            <td>{{ medicine.expiry }}</td>
+
+            <td>
+
+            {% if medicine.status == "Expired" %}
+
+            <span class="status-expired">
+                Expired
+            </span>
+
+            {% elif medicine.status == "Expiring Soon" %}
+
+            <span class="status-warning">
+                Expiring Soon
+            </span>
+
+            {% else %}
+
+            <span class="status-safe">
+                Safe
+            </span>
+
+            {% endif %}
+
+            </td>
+
+        </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script>
+
+function changeSort(){
+
+    let sort =
+    document.getElementById(
+        "sortSelect"
+    ).value;
+
+    window.location.href =
+    "/medicines?sort=" + sort;
+}
+
+const searchInput =
+document.getElementById("searchInput");
+
+searchInput.addEventListener(
+"keyup",
+function(){
+
+let filter =
+this.value.toLowerCase();
+
+let rows =
+document.querySelectorAll(
+"#medicineTable tbody tr"
+);
+
+rows.forEach(row=>{
+
+let text =
+row.innerText.toLowerCase();
+
+row.style.display =
+text.includes(filter)
+? ""
+: "none";
+
+});
+
+});
+
+</script>
+
+{% endblock %}
