@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>MediTrack Login</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+    <style>
+
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:'Inter',sans-serif;
+    }
+
+    body{
+        background:#02181c;
+        min-height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+    }
+
+    .login-card{
+
+        width:420px;
+
+        background:#042128;
+
+        border:1px solid rgba(255,255,255,.08);
+
+        border-radius:25px;
+
+        padding:40px;
+
+        box-shadow:0 0 40px rgba(20,216,196,.12);
+
+        animation:fadeIn .8s ease;
+    }
+
+    .logo{
+
+        width:80px;
+        height:80px;
+
+        margin:auto;
+
+        border-radius:20px;
+
+        background:#14d8c4;
+
+        display:flex;
+        justify-content:center;
+        align-items:center;
+
+        color:#02181c;
+
+        font-size:34px;
+    }
+
+    h1{
+        text-align:center;
+        color:white;
+        margin-top:20px;
+        margin-bottom:8px;
+    }
+
+    .subtitle{
+        text-align:center;
+        color:#9cb6b8;
+        margin-bottom:30px;
+    }
+
+    .form-group{
+        margin-bottom:20px;
+    }
+
+    .form-group label{
+        display:block;
+        color:white;
+        margin-bottom:8px;
+    }
+
+    .form-group input{
+
+        width:100%;
+
+        background:#031c20;
+
+        border:1px solid rgba(255,255,255,.08);
+
+        padding:14px;
+
+        border-radius:12px;
+
+        color:white;
+
+        outline:none;
+    }
+
+    .form-group input:focus{
+        border-color:#14d8c4;
+    }
+
+    .login-btn{
+
+        width:100%;
+
+        background:#14d8c4;
+
+        border:none;
+
+        padding:14px;
+
+        border-radius:12px;
+
+        color:#02181c;
+
+        font-size:16px;
+
+        font-weight:700;
+
+        cursor:pointer;
+
+        transition:.3s;
+    }
+
+    .login-btn:hover{
+        transform:translateY(-2px);
+    }
+
+    .error{
+
+        background:#7f1d1d;
+
+        color:white;
+
+        padding:12px;
+
+        border-radius:10px;
+
+        margin-bottom:15px;
+    }
+
+    @keyframes fadeIn{
+
+        from{
+            opacity:0;
+            transform:translateY(20px);
+        }
+
+        to{
+            opacity:1;
+            transform:translateY(0);
+        }
+    }
+
+    .password-box{
+    position:relative;
+    margin-bottom:20px;
+}
+
+.password-box input{
+    width:100%;
+    background:#031c20;
+    border:1px solid rgba(255,255,255,.08);
+    padding:14px;
+    border-radius:12px;
+    color:white;
+    outline:none;
+}
+
+.password-box input:focus{
+    border-color:#14d8c4;
+}
+
+.password-box span{
+    position:absolute;
+    right:15px;
+    top:50%;
+    transform:translateY(-50%);
+    cursor:pointer;
+    color:white;
+}
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="login-card">
+
+    <div class="logo">
+        <i class="fas fa-heartbeat"></i>
+    </div>
+
+    <h1>MediTrack</h1>
+
+    <p class="subtitle">
+        Hospital Medicine Expiry Alert System
+    </p>
+
+    {% if error %}
+
+    <div class="error">
+        {{ error }}
+    </div>
+
+    {% endif %}
+
+    <form method="POST">
+
+        <div class="form-group">
+
+            <label>Username</label>
+
+            <input
+                type="text"
+                name="username"
+                required
+            >
+
+        </div>
+
+        <label style="display:block;color:white;margin-bottom:8px;">
+            Password
+        </label>
+
+        <div class="password-box">
+
+    <input
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Password"
+        required
+    >
+
+    <span id="togglePassword" onclick="togglePassword()">
+        <i class="fa-solid fa-eye"></i>
+    </span>
+
+</div>
+
+        <button
+            type="submit"
+            class="login-btn"
+        >
+            Login
+        </button>
+
+        <p style="text-align:center;margin-top:15px;color:white;">
+            Don't have an account?
+            <a href="/register"
+                style="color:#14d8c4;">
+                Create Account
+            </a>
+        </p>
+
+    </form>
+
+</div>
+
+
+<script>
+
+function togglePassword(){
+
+    let password =
+    document.getElementById("password");
+
+    let icon =
+    document.querySelector("#togglePassword i");
+
+    if(password.type === "password"){
+
+        password.type = "text";
+
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+
+    }
+
+    else{
+
+        password.type = "password";
+
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+
+    }
+}
+
+</script>
+
+</body>
+</html>

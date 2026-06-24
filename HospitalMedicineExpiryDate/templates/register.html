@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Account</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
+
+    <style>
+
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family:'Inter',sans-serif;
+    }
+
+    body{
+        background:#02181c;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        min-height:100vh;
+    }
+
+    .register-card{
+        width:450px;
+        background:#042128;
+        padding:40px;
+        border-radius:20px;
+        border:1px solid rgba(255,255,255,.08);
+    }
+
+    h1{
+        color:white;
+        text-align:center;
+        margin-bottom:25px;
+    }
+
+    input{
+        width:100%;
+        padding:14px;
+        margin-bottom:15px;
+        border:none;
+        border-radius:10px;
+        background:#031c20;
+        color:white;
+    }
+
+    button{
+        width:100%;
+        padding:14px;
+        border:none;
+        border-radius:10px;
+        background:#14d8c4;
+        font-weight:700;
+        cursor:pointer;
+    }
+
+    a{
+        color:#14d8c4;
+        text-decoration:none;
+    }
+
+    p{
+        text-align:center;
+        margin-top:15px;
+        color:white;
+    }
+
+    .error{
+        background:#7f1d1d;
+        padding:10px;
+        border-radius:10px;
+        margin-bottom:15px;
+        color:white;
+    }
+
+    .password-box{
+        position:relative;
+        margin-bottom:15px;
+    }
+
+    #togglePassword{
+        position:absolute;
+        right:15px;
+        top:14px;
+        color:white;
+        cursor:pointer;
+    }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="register-card">
+
+    <h1>Create Account</h1>
+
+    {% if error %}
+    <div class="error">
+        {{ error }}
+    </div>
+    {% endif %}
+
+    <form method="POST">
+
+        <input
+            type="text"
+            name="fullname"
+            placeholder="Full Name"
+            required
+        >
+
+        <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            required
+        >
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+        >
+
+        <div class="password-box">
+
+            <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Password"
+                required
+            >
+
+            <span id="togglePassword" onclick="togglePassword()">
+                <i class="fa-solid fa-eye"></i>
+            </span>
+
+        </div>
+
+        <button type="submit">
+            Create Account
+        </button>
+
+    </form>
+
+    <p>
+        Already have an account?
+        <a href="/login">Login</a>
+    </p>
+
+</div>
+
+<script>
+
+function togglePassword(){
+
+    let password =
+    document.getElementById("password");
+
+    let icon =
+    document.querySelector("#togglePassword i");
+
+    if(password.type === "password"){
+
+        password.type = "text";
+
+        icon.classList.remove("fa-eye");
+        icon.classList.add("fa-eye-slash");
+
+    }
+
+    else{
+
+        password.type = "password";
+
+        icon.classList.remove("fa-eye-slash");
+        icon.classList.add("fa-eye");
+
+    }
+}
+
+</script>
+
+</body>
+</html>

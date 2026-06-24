@@ -78,13 +78,38 @@
 
             <div class="profile-section">
 
-                <i class="fas fa-bell"></i>
+                <div class="notification-wrapper">
 
-                <span>Geetha</span>
+                    <i class="fas fa-bell notification-icon"></i>
 
-                <span class="staff-badge">
-                    Staff
-                </span>
+                    {% if notification_count > 0 %}
+                    <span class="notification-badge">
+                        {{ notification_count }}
+                    </span>
+                    {% endif %}
+
+                    <div class="notification-dropdown">
+
+                        <h6>Notifications</h6>
+
+                        {% for medicine, days_left in urgent_medicines %}
+
+                            {% if days_left < 0 %}
+                                <p>❌ {{ medicine[1] }} expired</p>
+                            {% else %}
+                                <p>⚠ {{ medicine[1] }} expires in {{ days_left }} days</p>
+                            {% endif %}
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+                <span>{{ session.get('user', 'Guest') }}</span>
+
+                <a href="/logout" class="staff-badge">
+                    Logout
+                </a>
 
             </div>
 

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="page-header">
+    
+    <h1>Reports</h1>
+
+    <p>
+        Expiry alerts and inventory health reports
+    </p>
+
+</div>
+
+<div class="report-card">
+
+    <h3>⚠ Expiring Medicines</h3>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Name</th>
+                <th>Manufacturer</th>
+                <th>Expiry Date</th>
+                <th>Days Left</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for medicine in expiring_medicines %}
+
+            <tr>
+
+                <td>{{ medicine.name }}</td>
+                <td>{{ medicine.manufacturer }}</td>
+                <td>{{ medicine.expiry }}</td>
+                <td>{{ medicine.days_left }}</td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<br>
+
+<div class="report-card">
+
+    <h3>🚨 Expired Medicines</h3>
+
+    <table>
+
+        <thead>
+
+            <tr>
+                <th>Name</th>
+                <th>Manufacturer</th>
+                <th>Expiry Date</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for medicine in expired_medicines %}
+
+            <tr>
+
+                <td>{{ medicine.name }}</td>
+                <td>{{ medicine.manufacturer }}</td>
+                <td>{{ medicine.expiry }}</td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% endblock %}

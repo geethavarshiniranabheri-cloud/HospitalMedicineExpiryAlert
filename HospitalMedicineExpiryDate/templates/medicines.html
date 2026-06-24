@@ -59,6 +59,7 @@
                 <th>Quantity</th>
                 <th>Expiry Date</th>
                 <th>Status</th>
+                <th>Action</th>
 
             </tr>
 
@@ -96,6 +97,21 @@
             </span>
 
             {% endif %}
+
+            </td>
+
+            <td>
+
+                <a href="/edit/{{ medicine.id }}"
+                    class="btn btn-sm btn-warning">
+                    📝 Edit
+                </a>
+
+                <a href="/delete/{{ medicine.id }}"
+                class="btn btn-sm btn-danger"
+                onclick="return confirm('Delete this medicine?')">
+                    🗑 Delete
+                </a>
 
             </td>
 

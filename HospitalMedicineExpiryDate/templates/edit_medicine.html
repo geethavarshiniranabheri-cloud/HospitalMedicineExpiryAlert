@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="page-header">
+
+    <h1>Edit Medicine</h1>
+
+    <p>Update medicine details</p>
+
+</div>
+
+<form method="POST" class="medicine-form">
+
+    <input
+        type="text"
+        name="name"
+        value="{{ medicine[1] }}"
+        required
+    >
+
+    <input
+        type="text"
+        name="manufacturer"
+        value="{{ medicine[2] }}"
+        required
+    >
+
+    <input
+        type="number"
+        name="quantity"
+        value="{{ medicine[3] }}"
+        required
+    >
+
+    <input
+        type="date"
+        name="expiry_date"
+        value="{{ medicine[4] }}"
+        required
+    >
+
+    <button
+        type="submit"
+        class="btn btn-success"
+    >
+        Update Medicine
+    </button>
+
+</form>
+
+{% endblock %}
